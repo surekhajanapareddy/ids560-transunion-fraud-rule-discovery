@@ -1,0 +1,30 @@
+{
+  "hv_val": 0.7345838944298833,
+  "hv_test": 0.7494423974938871,
+  "best_val_f1": 0.7629911280101394,
+  "selected_test_f1": 0.7516600265604249,
+  "front": 97,
+  "n_evaluations": 15100,
+  "hv_train_pop": 0.7238791365867138,
+  "hv_train_archive": 0.7548408726423248,
+  "archive_size": 600,
+  "algorithm": "MOEA/D",
+  "pop": 100,
+  "gens": 150,
+  "seed": 42,
+  "crossover_rate": 0.7,
+  "mutation_rate": 0.5,
+  "condition_cap": 160,
+  "features": "all",
+  "final_unique_front_size": 81,
+  "selected_rule_by_val_f1": {
+    "val_precision": 0.8026666666666666,
+    "val_recall": 0.7270531400966184,
+    "val_f1": 0.7629911280101394,
+    "test_precision": 0.7883008356545961,
+    "test_recall": 0.7182741116751269,
+    "test_f1": 0.7516600265604249,
+    "total_conditions": 28,
+    "n_rules": 7
+  }
+}

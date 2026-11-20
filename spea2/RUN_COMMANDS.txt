@@ -1,0 +1,47 @@
+SPEA2 commands (run from the "code" folder).
+Put synthetic_fraud_500k.csv in the code folder, or replace the file name with its full path.
+NOTE: the results folders below are the saved results. Running a command overwrites them, so use a different folder name to keep the originals.
+
+INSTALL (once):
+  pip install numpy pandas matplotlib deap pymoo scikit-learn optuna
+
+ARGUMENT ORDER
+  spea2_midterm.py     csv pop gens seed                                        (6 features)
+  spea2_allfeatures.py csv pop gens seed crossover mutation out_folder condition_cap   (all features)
+
+EXPERIMENT 1 - 6 features, pop 100, 150 gens, crossover 0.7, mutation 0.5
+  mkdir -p ../results/exp1_6features && cd ../results/exp1_6features && python ../../code/spea2_midterm.py ../../code/synthetic_fraud_500k.csv 100 150 42 && cd ../../code
+EXPERIMENT 2 - all features, pop 100, 150 gens, 0.7 / 0.5
+  python spea2_allfeatures.py synthetic_fraud_500k.csv 100 150 42 0.7 0.5 ../results/exp2_allfeatures 160
+EXPERIMENT 3 - all features, pop 60, 100 gens, crossover 0.5, mutation 0.2
+  python spea2_allfeatures.py synthetic_fraud_500k.csv 60 100 42 0.5 0.2 ../results/exp3_allfeatures 160
+EXPERIMENT 4 - all features, pop 200, 250 gens, crossover 0.9, mutation 0.8
+  python spea2_allfeatures.py synthetic_fraud_500k.csv 200 250 42 0.9 0.8 ../results/exp4_allfeatures 160
+EXPERIMENT 5 - lower mutation (0.2), otherwise same as Exp 4
+  python spea2_allfeatures.py synthetic_fraud_500k.csv 200 250 42 0.9 0.2 ../results/exp5_lower_mutation 160
+EXPERIMENT 6 - 50-condition cap, otherwise same as Exp 4
+  python spea2_allfeatures.py synthetic_fraud_500k.csv 200 250 42 0.9 0.8 ../results/exp6_cap50 50
+
+SCIKIT-LEARN STYLE PARAMETER SEARCH (12 settings x 3 seeds, about 1.5 hours on 2 CPUs; restarts resume)
+  python spea2_search.py --csv synthetic_fraud_500k.csv --n_iter 12 --seeds 3 --pop 200 --out ../results/parameter_search/spea2_search
+
+OPTUNA SEARCH (24 trials, pop 200, 2 workers, about 1 hour)
+  python spea2_optuna.py synthetic_fraud_500k.csv 24 200 ../results/optuna 2
+  Re-check a fixed setting with the same seeds (fair comparison):
+  python spea2_optuna_baseline.py synthetic_fraud_500k.csv 200 250 0.9 0.8 baseline_same_seeds.csv
+
+RANDOM FOREST BENCHMARK + FEATURE IMPORTANCE (about 90 s)
+  python rf_benchmark.py synthetic_fraud_500k.csv
+
+GOOGLE COLAB (upload the code folder files and synthetic_fraud_500k.csv to /content, then run each line in its own cell)
+  !pip install -q deap pymoo optuna
+  !python spea2_optuna.py synthetic_fraud_500k.csv 24 200 optuna_out 2
+  !python spea2_search.py --csv synthetic_fraud_500k.csv --n_iter 12 --seeds 3 --pop 200 --out spea2_search
+  Note: start each command with "!" (it runs the script). Save outputs to Google Drive or download them before the
+  Colab session ends. Use a NEW output folder name for a fresh search; reusing a folder resumes/tops up the old one.
+
+REDRAW ALL GRAPHS FROM THE SAVED CSVs
+  python make_plots.py
+
+QUICK TEST (about 1 minute, tiny settings)
+  python spea2_allfeatures.py synthetic_fraud_500k.csv 40 5 42 0.7 0.5 quick_test 160

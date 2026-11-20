@@ -1,0 +1,6 @@
+{
+  "pop": 200,
+  "generations": 300,
+  "crossover_rate": 0.7314895870797555,
+  "mutation_rate": 0.8695084440913422
+}

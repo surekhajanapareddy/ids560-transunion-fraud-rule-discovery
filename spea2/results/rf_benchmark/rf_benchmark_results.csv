@@ -1,0 +1,5 @@
+threshold,split,precision,recall,f1
+default 0.5,val,1.0,0.894,0.944
+default 0.5,test,1.0,0.911,0.954
+validation-best threshold 0.23,val,0.986,0.99,0.988
+validation-best threshold 0.23,test,0.98,0.99,0.985

@@ -1,0 +1,12 @@
+# data (not shared in the repo)
+synthetic_fraud_500k.csv
+*.csv.gz
+sample_synthetic_with_time*
+# python / notebooks
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# local run outputs
+quick_test/
+*_tmp/
+*_runs_partial_OLD_*.csv

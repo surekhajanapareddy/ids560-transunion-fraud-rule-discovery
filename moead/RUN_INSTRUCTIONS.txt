@@ -1,0 +1,33 @@
+MOEA/D — IDS 560 / TransUnion — FINAL CODE + RESULTS
+
+STATUS: All six experiments and both parameter searches are COMPLETE and the genuine outputs are included in results/.
+
+Key outputs:
+  results/exp1_moead/ ... results/exp6_moead/  (six experiments)
+  results/parameter_search/moead_search_runs.csv (36 rows)
+  results/parameter_search/moead_search_summary.csv (12 rows)
+  results/optuna/optuna_trials.csv (24 COMPLETE trials)
+  results/optuna/optuna_top3_reseeded.csv (9 rows)
+  results/optuna/exp4_setting_same_seeds.csv (3 rows)
+  results/optuna/best_params.json
+  results/optuna/optuna_search.png
+  results/rf_benchmark/ (shared RF baseline)
+
+DATA: This share ZIP does not include the raw synthetic_fraud_500k.csv. To rerun, obtain the same team dataset and place it in the project folder. Used CSV SHA-256:
+  442f264eed7648bf0d227a53bb171130dda7639adcf572c8376c68cda1d1909d
+
+Python setup (from MOEAD_Complete_Project folder):
+  pip install -r requirements.txt
+  python verify_tuning_outputs.py results
+  python compare_preprocessing.py --csv synthetic_fraud_500k.csv
+  python run_experiments.py --exp all --skip-existing
+  python moead_search.py --n_iter 12 --seeds 3 --pop 200 --jobs 2
+  python moead_optuna.py --trials 24 --pop 200 --workers 2
+
+DO NOT rerun all experiments unless necessary: results are already complete.
+The shared dataset's hash should be checked against NSGA-II before asserting byte-for-byte input identity.
+See README.md for the full experimental protocol.
+
+FIXES (Nov 20): see "Fixes (Nov 20)" in README.md. Children are now always varied (no unchanged parent copies);
+add --no-force-variation to moead_run.py / run_experiments.py to reproduce the original saved results exactly.
+Optuna workers are now seeded, and re-running a search with different settings no longer reuses old runs.
